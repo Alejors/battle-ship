@@ -1,30 +1,57 @@
 const getState = ({ getStore, getActions, setStore }) => {
+    
     const row = Array.from(Array(10)).map((e, i) => '');
     const boardMatrix = row.map((ele) => Array.from(row));
+    const pcBoard = row.map((ele) => Array.from(row));
+
 	return {
 		store: {
-            board: boardMatrix
+            'turn': 'player',
+            'playerBoard': boardMatrix,
+            'pcBoard': pcBoard,
+            'playerShips': {
+                'carrier':[[],[],[],[],[]],
+                'vessel':[[],[],[],[]],
+                'submarine': [[],[],[]],
+                'cruiser':[[],[],[]],
+                'boat':[[],[]]
+            },
+            'pcShips': {
+                'carrier':[[],[],[],[],[]],
+                'vessel':[[],[],[],[]],
+                'submarine': [[],[],[]],
+                'cruiser':[[],[],[]],
+                'boat':[[],[]]
+            }
 		},
 		actions: {
             tileMark: () => {
-                const { board } = getStore();
-                let aux = board;
-                let index = Math.floor(Math.random() * 10);
-                aux[index][index] = 'X';
-                setStore({
-                    board: aux
-                });
+                const { pcBoard } = getStore();
+                let aux = [...pcBoard];
+                let indexX = Math.floor(Math.random()*10);
+                let indexY = Math.floor(Math.random()*10);
+                if(aux[indexX][indexY] === 'X'){
+                    const {tileMark} = getActions();
+                    window.alert('REPEATED!');
+                    tileMark();
+                }else{
+                    aux[indexX][indexY] = 'X';
+                    setStore({
+                        pcBoard: aux,
+                        'turn': 'player'
+                    });
+                }
             },
             assign: (x,y) => {
-                const { board } = getStore();
-
-                if (board[y][x] !== '') {
+                const { playerBoard } = getStore();
+                if (playerBoard[x][y] !== '') {
                     window.alert('Tile already filled');
                 } else {
-                    let auxBoard = [...board];
-                    auxBoard[y][x] = 'X';
+                    let auxBoard = [...playerBoard];
+                    auxBoard[x][y] = 'X';
                     setStore({
-                        board: auxBoard
+                        turn: 'pc',
+                        playerBoard: auxBoard
                     })
                 }
             }

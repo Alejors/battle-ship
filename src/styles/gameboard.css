@@ -1,0 +1,27 @@
+.row{
+    justify-content: center;
+}
+
+.tile, .pctile{
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    max-width: 6vw !important;
+    max-height: 60px;
+    height: 6vh !important;
+    background: rgba(0,255,255,0.4);
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-weight: bolder;
+}
+
+.pctile{
+    background: rgba(255,0,0,0.4);
+}
+
+.header{
+    background: black;
+    color: white;
+}
