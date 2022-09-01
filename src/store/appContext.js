@@ -17,6 +17,9 @@ const injectContext = PassedComponent => {
 			})
 		);
 		useEffect(() => {
+			state.actions.autoSetships();
+			
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, []);
 
 		return (

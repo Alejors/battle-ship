@@ -1,20 +1,20 @@
 import React, { useContext } from 'react'
 import { Context } from '../store/appContext';
 
-const Tile = () => {
-    const {store, actions} = useContext(Context);
-    return store.playerBoard.map((row, i) => {        
+const PcTile = () => {
+    const {store} = useContext(Context);
+    return store.pcBoard.map((row, i) => {        
        return(
         <div key={i} className='row d-flex'>
             <aside className='tile header'>{i}</aside>
             {
                 row.map((tile, j) => {
                     return (
-                    <div key={j} onClick={() => actions.assign(i, j)} 
-                    className='tile' 
-                    style={{ color: store.playerBoard[i][j] === '~~' ? 'blue' : 'red' }}
+                    <div key={j} 
+                    className='pctile' 
+                    style={{ color: store.pcBoard[i][j] === '~~' ? 'blue' : 'red' }}
                     >
-                        {store.playerBoard[i][j]}
+                        {store.pcBoard[i][j]}
                     </div>
                     )
                 })
@@ -24,4 +24,4 @@ const Tile = () => {
     );
 };
 
-export default Tile;
+export default PcTile;
