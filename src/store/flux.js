@@ -1,16 +1,17 @@
-import { Loading, Notify, Report } from 'notiflix'
+import { Confirm, Loading, Notify, Report } from 'notiflix'
+
+const row = Array.from(Array(10)).map((e, i) => '')
+const boardMatrix = row.map(ele => Array.from(row))
+const pcBoard = row.map(ele => Array.from(row))
+const shipPicker = row.map(ele => Array.from(row))
 
 const getState = ({ getStore, getActions, setStore }) => {
-  const row = Array.from(Array(10)).map((e, i) => '')
-  const boardMatrix = row.map(ele => Array.from(row))
-  const pcBoard = row.map(ele => Array.from(row))
-  const shipPicker = row.map(ele => Array.from(row))
 
   return {
     store: {
       turn: 'player',
-      playerBoard: boardMatrix,
-      pcBoard: pcBoard,
+      playerBoard: [...boardMatrix],
+      pcBoard: [...pcBoard],
       playerShips: {
         carrier: [],
         vessel: [],
@@ -25,22 +26,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         cruiser: null,
         boat: null
       },
-      shipPicker: shipPicker,
+      shipPicker: [...shipPicker],
       ready: false
     },
     actions: {
       //FUNCION QUE DISPARA DE MANERA ALEATORIA
 
       tileMark: () => {
-        const { pcBoard } = getStore()
+        const { pcBoard, playerShips } = getStore()
         let aux = [...pcBoard]
         let indexX = Math.floor(Math.random() * 10)
         let indexY = Math.floor(Math.random() * 10)
-        if (aux[indexY][indexX] === 'X') {
+        if (aux[indexY][indexX] !== '') {
           const { tileMark } = getActions()
           tileMark()
         } else {
-          aux[indexY][indexX] = 'X'
+          let fired = false
+          for (let ships in playerShips) {
+            // eslint-disable-next-line
+            playerShips[ships].forEach(part => {
+              if (part[0] === indexY && part[1] === indexX) {
+                Notify.failure('Te Dieron!')
+                part = 'X'
+                fired = true
+                return
+              }
+            })
+          }
+          fired ? (aux[indexY][indexX] = 'X') : (aux[indexY][indexX] = '~~')
           setStore({
             pcBoard: aux,
             turn: 'player'
@@ -52,20 +65,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       assign: (y, x) => {
         const { playerBoard, pcShips } = getStore()
-        const { tileMark } = getActions()
+        const { tileMark, checkSunken } = getActions()
         if (playerBoard[y][x] !== '') {
           Report.failure('Ya se disparó ahí', 'Disparar en otro espacio', 'OK!')
         } else {
           let auxBoard = [...playerBoard]
           let fired = false
-          for (let ships in pcShips) {
+          let auxShips = pcShips
+          for (let ships in auxShips) {
             // eslint-disable-next-line
-            pcShips[ships].forEach(part => {
+            auxShips[ships].forEach((part, i) => {
               if (part[0] === y && part[1] === x) {
                 Notify.success('FUEGO!')
-                part = 'X'
+                auxShips[ships][i] = null
+                let auxNew = auxShips[ships].filter(ele => ele !== null)
+                auxShips[ships] = auxNew
                 fired = true
-                return
+                checkSunken(pcShips[ships], 'player')
+                setStore({
+                  pcShips: auxShips
+                })
               }
             })
           }
@@ -81,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setTimeout(setStore({ turn: 'pc' }), 2000)
       },
 
-      //FUNCION QUE UBICA LOS BARCOS DEL PC DE MANERA AUTOMÁTICA
+      //FUNCION QUE UBICA LOS BARCOS DEL PC DE MANERA AUTOMÁTICA... ERRORES: EN OCASIONES SUPERPONE BARCOS
 
       autoSetships: () => {
         let pcCarrier = []
@@ -344,7 +363,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   playerShips: aux,
                   shipPicker: auxBoard
                 })
-              }else{
+              } else {
                 auxBoard[y][x] = '#'
                 auxBoard[y + 1][x] = '#'
                 aux['cruiser'].push([y, x], [y + 1, x])
@@ -377,7 +396,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                   'Elige la Siguiente Loseta Vertical u Horizontal',
                   'Entendido!'
                 )
-              } else if(y === aux['boat'][0][0] + 1 || x === aux['boat'][0][1] + 1) {
+              } else if (
+                y === aux['boat'][0][0] + 1 ||
+                x === aux['boat'][0][1] + 1
+              ) {
                 auxBoard[y][x] = '#'
                 aux['boat'].push([y, x])
                 setStore({
@@ -385,7 +407,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   shipPicker: auxBoard
                 })
                 setTimeout(setStore({ ready: true }), 3000)
-              }else{
+              } else {
                 Report.failure(
                   'Selección No Permitida',
                   'Elige la Siguiente Loseta Vertical u Horizontal',
@@ -395,6 +417,79 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           }
         }
+      },
+
+      //FUNCION QUE REVISA SI UN BARCO FUE HUNDIDO
+
+      checkSunken: (ship, who) => {
+        const { checkWinner, restart } = getActions()
+        if (ship.length === 0) {
+          Notify.warning('Barco Hundido!')
+          if (checkWinner(who) !== null) {
+            Confirm.show(
+              checkWinner(who),
+              'Quieres Jugar de Nuevo?',
+              'Si',
+              'No',
+              () => {
+                restart()
+              },
+              () => {
+                Loading.pulse('Ok, Nos Vemos...')
+              }
+            )
+          }
+        }
+      },
+
+      //FUNCION QUE VERIFICA GANADOR
+
+      checkWinner: who => {
+        const { pcShips, playerShips } = getStore()
+        if (who === 'player') {
+          for (let ship in pcShips) {
+            if (pcShips[ship].length !== 0) {
+              return null
+            }
+          }
+          return 'Player Gana!'
+        } else {
+          playerShips.forEach(ship => {
+            if (ship.length !== 0) {
+              return null
+            }
+          })
+          return 'PC Gana!'
+        }
+      },
+
+      restart: () => {
+        const { autoSetships } = getActions()
+        const newPickingBoard = row.map(ele => Array.from(row));
+        const newPlayerBoard = row.map(ele => Array.from(row));
+        const newPCBoard = row.map(ele => Array.from(row));
+        setStore({
+          turn: 'player',
+          playerBoard: newPlayerBoard,
+          pcBoard: newPCBoard,
+          playerShips: {
+            carrier: [],
+            vessel: [],
+            submarine: [],
+            cruiser: [],
+            boat: []
+          },
+          pcShips: {
+            carrier: null,
+            vessel: null,
+            submarine: null,
+            cruiser: null,
+            boat: null
+          },
+          shipPicker: newPickingBoard,
+          ready: false
+        })
+        autoSetships()
       }
     }
   }
