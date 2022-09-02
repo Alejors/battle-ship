@@ -5,6 +5,9 @@
 > App creada con Create React App (CRA)
 > Para documentación sobre CRA, consultar la [documentación](https://create-react-app.dev/).
 
+> Adicionalmente se utilizó Notiflix para las notificaciones, loading y reportes.
+> Consultas sobre [Notiflix](https://notiflix.github.io/documentation).
+
 ---
 
 ## Correr la app

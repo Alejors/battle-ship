@@ -85,7 +85,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             // eslint-disable-next-line
             auxShips[ships].forEach((part, i) => {
               if (part[0] === y && part[1] === x) {
-                Notify.success('FUEGO!')
                 auxShips[ships][i] = null
                 let auxNew = auxShips[ships].filter(ele => ele !== null)
                 auxShips[ships] = auxNew
@@ -94,11 +93,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({
                   pcShips: auxShips
                 })
-              }else{
-                Notify.info('AGUA!')
               }
             })
           }
+          fired ?  Notify.success('FUEGO!') : Notify.info('AGUA!')
           fired ? (auxBoard[y][x] = 'X') : (auxBoard[y][x] = '~~')
           setStore({
             playerBoard: auxBoard
