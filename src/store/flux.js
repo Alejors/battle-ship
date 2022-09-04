@@ -30,7 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ready: false
     },
     actions: {
-      //FUNCION QUE DISPARA DE MANERA ALEATORIA
+      //FUNCION QUE GENERA DISPARO DEL PC DE MANERA ALEATORIA
 
       tileMark: () => {
         const { pcBoard, playerShips } = getStore()

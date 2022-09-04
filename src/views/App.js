@@ -27,9 +27,14 @@ const App = () => {
       { 
       store.ready === false ? 
       <Pickingboard /> :
-        store.turn === 'Jugador' ? 
-        <Gameboard /> : 
-        <Pcboard />
+        (<>
+          <h4>Ataca los barcos enemigos! </h4>
+          <Gameboard />
+          <h4>Acá están tus barcos: </h4>
+          <Pcboard />
+          <br/>
+        </>
+        )
         }
     <small className="fixed-bottom ms-3 mb-2">Imagen de fondo de <a href="https://unsplash.com/@mafonso?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Michael Afonso</a> en <a href="https://unsplash.com/es/s/fotos/navy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   </small>

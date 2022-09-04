@@ -16,6 +16,10 @@
 
 ## Correr la app
 
+Clonar repositorio
+
+    $ git clone git@github.com:Alejors/battle-ship.git
+
 Instalar las librerías:
 
     $ npm install

@@ -12,7 +12,7 @@ const PcTile = () => {
                     return (
                     <div key={j} 
                     className='pctile' 
-                    style={{ color: store.pcBoard[i][j] === '~~' ? 'blue' : 'red' }}
+                    style={{ color: store.pcBoard[i][j] === '~~' ? 'blue' : 'red', backgroundColor: store.shipPicker[i][j] === '#' ? 'grey' : null }}
                     >
                         {store.pcBoard[i][j]}
                     </div>
