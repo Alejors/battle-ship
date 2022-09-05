@@ -52,8 +52,13 @@ cuántos espacios ocupa.
     ![Acierto y Error](https://res.cloudinary.com/alejors/image/upload/v1662149837/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_16-16-43_gtaun3.png)
 
 6. Cuando hundas barcos enemigos se te avisará y se verificará si aún quedan barcos enemigos sin hundir.
-7. Cuando uno de los dos jugadores (El PC o Tú) se quede sin barcos, se terminará el juego.
+
+7. Atacarás a tu enemigo en el tablero superior. Tu enemigo te atacará en el tablero inferior, donde tus barcos se verán marcados en un fondo gris.
+
+![tablero del enemigo](https://res.cloudinary.com/alejors/image/upload/v1662335082/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-04_20-42-49_ydmax7.png)
+
+8. Cuando uno de los dos jugadores (El PC o Tú) se quede sin barcos, se terminará el juego.
 
     ![Fin del juego](https://res.cloudinary.com/alejors/image/upload/v1662150158/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_16-21-10_vtafrr.png)
 
-8. Si quieres volver a jugar, sólo presiona **Sí** a la consulta de volver a jugar.
+9. Si quieres volver a jugar, sólo presiona **Sí** a la consulta de volver a jugar.
