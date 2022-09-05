@@ -14,9 +14,9 @@
 
 ---
 
-## Correr la app
+## Inicializar la app
 
-Clonar repositorio
+Clonar repositorio:
 
     $ git clone git@github.com:Alejors/battle-ship.git
 
@@ -24,11 +24,11 @@ Instalar las librerías:
 
     $ npm install
 
-Correr programa:
+Inicializar el servidor local:
 
     $ npm run start
 
-La App correrá en [localhost](http://localhost:3000/)
+La App estará disponible en [localhost](http://localhost:3000/)
 
 ---
 

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../store/appContext';
 
+//Creación de casillas/losetas del tablero donde se define ubicación de los barcos
 const PickingTile = () => {
     const {store, actions} = useContext(Context);
     return store.shipPicker.map((row, i) => {        

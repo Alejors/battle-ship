@@ -1,6 +1,7 @@
 import React from 'react'
 import PcTile from './pcTile'
 
+//Tablero de juego del PC. Se visualizan los barcos que puso el jugador y las jugadas del PC
 const Pcboard = () => {
   return (
     <div className='container'>

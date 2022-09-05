@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/gameboard.css'
 import PickingTile from './pickingTile'
 
+//Tablero utilizado para almacenar la ubicación de los barcos que defin el jugador
 const Pickingboard = () => {
   return (
     <div className='container'>

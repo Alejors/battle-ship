@@ -3,6 +3,9 @@ import '../styles/gameboard.css'
 import Tile from './tile'
 
 const Gameboard = () => {
+
+  // Tablero donde jugará el Jugador. No se visualiza nada más que sus jugadas
+  
   return (
     <div className='container'>
       <div className='row d-flex'>

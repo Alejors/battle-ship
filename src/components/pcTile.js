@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../store/appContext';
 
+//Creación de casillas para tablero PC. Sin onclick. Se cambia fondo según ubicación de barcos en shipPicker
 const PcTile = () => {
     const {store} = useContext(Context);
     return store.pcBoard.map((row, i) => {        
