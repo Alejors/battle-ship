@@ -40,12 +40,12 @@ cuántos espacios ocupa.
 
 >Los espacios seleccionados por el jugador se marcarán con un símbolo numeral o gato (**#**).
 
-    ![Imagen de subtítulo](https://res.cloudinary.com/alejors/image/upload/v1662148847/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_15-56-19_zko2u2.png)
+![Imagen de subtítulo](https://res.cloudinary.com/alejors/image/upload/v1662148847/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_15-56-19_zko2u2.png)
 
 3. El primer espacio seleccionado corresponde a la *proa del barco*, por lo que debe seleccionar un casillero **al menos a la distancia suficiente del final del tablero** (el final del tablero serían la *columna F o fila 9*) para que entren las siguientes partes. 
 4. El siguiente espacio determinará la **dirección** en que irá tu barco. Los barcos se ubican de manera *vertical u horizontal*. Si intentas seleccionar un casillero **no permitido** se enviará un aviso, recordando las condiciones para su ubicación.
 
-    ![Imagen de alerta por posición incorrecta](https://res.cloudinary.com/alejors/image/upload/v1662148847/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_15-56-19_zko2u2.png)
+![Imagen de alerta por posición incorrecta](https://res.cloudinary.com/alejors/image/upload/v1662148847/proyect-avatars/battleship-readme/Captura_de_pantalla_de_2022-09-02_15-56-19_zko2u2.png)
 
 5. Una vez ubicados los cinco (5) barcos. Comenzarán las *rondas de disparos*. El primero en disparar será el jugador. El disparo se realiza haciendo **clic** sobre un casillero del tablero. Si **aciertas el disparo**, se te avisará y el casillero quedará marcado con una **X**. Si *erras*, el casillero quedará marcado con *dos tildes (~)*, asemejando olas de agua.
 
